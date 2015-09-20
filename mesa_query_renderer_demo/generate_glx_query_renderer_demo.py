@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import csv
-with open("query_renderer_test.c", "w") as cf:
+with open("query_renderer_demo.c", "w") as cf:
     cf.write("//Compile with:\n//gcc query_renderer_demo.c -lX11 -lepoxy\n\n")
     cf.write("#include <epoxy/gl.h>\n#include <epoxy/glx.h>\n#include <stdio.h>\nint main() {\n    unsigned int value[3]; // longest return value are 3 uints\n")
     with open("query_renderer.csv") as f:
