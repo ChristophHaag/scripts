@@ -1,0 +1,12 @@
+attrib|returnnum|desc
+GLX_RENDERER_VENDOR_ID_MESA|1|PCI ID of the device vendor
+GLX_RENDERER_DEVICE_ID_MESA|1|PCI ID of the device
+GLX_RENDERER_VERSION_MESA|3|Major, minor, and patch level of the renderer implementation
+GLX_RENDERER_ACCELERATED_MESA|1|Boolean indicating whether or not the renderer is hardware accelerated
+GLX_RENDERER_VIDEO_MEMORY_MESA|1|Number of megabytes of video memory available to the renderer
+GLX_RENDERER_UNIFIED_MEMORY_ARCHITECTURE_MESA|1|Boolean indicating whether or not the renderer uses a unified memory architecture or has separate "on-card" and GART memory.
+GLX_RENDERER_PREFERRED_PROFILE_MESA|1|Bitmask of the preferred context profile for this renderer. This value is suitable to be supplied with the GLX_CONTEXT_PROFILE_MASK_ARB attribute to glXCreateContextAttribsARB
+GLX_RENDERER_OPENGL_CORE_PROFILE_VERSION_MESA|2|Maximum core profile major and minor version supported by the renderer
+GLX_RENDERER_OPENGL_COMPATIBILITY_PROFILE_VERSION_MESA|2|Maximum compatibility profile major and minor version supported by the renderer
+GLX_RENDERER_OPENGL_ES_PROFILE_VERSION_MESA|2|Maximum OpenGL ES 1.x major and minor version supported by the renderer
+GLX_RENDERER_OPENGL_ES2_PROFILE_VERSION_MESA|2|Maximum OpenGL ES 2.x or 3.x major and minor version supported by the renderer
