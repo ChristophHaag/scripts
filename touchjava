@@ -3,6 +3,7 @@
 if [ -z "$1" ];
 then
 	echo "Call as $0 <Classname> [directory]"
+	exit 1
 fi
 
 case ${1:0:1} in
