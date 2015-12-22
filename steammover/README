@@ -1,0 +1,18 @@
+Convenience script to move steam files between library directories.
+
+What it does:
+
+* Reads all the appmanifest_*.acf files in the "from" directory
+* Displays a list of game names to move and asks for input which of those to move
+* moves the appmanifest_*.acf files to the "to" directory
+
+It does not (so far):
+
+* Move the actual directories of the game (no trivial way to match gamename/acf with directory)
+* Do a lot of error checking
+* Show the list alphabetically sorted
+
+Running:
+```
+steamappmover.py /from/where/you/move/SteamApps /to/where/you/move/SteamApps
+```
