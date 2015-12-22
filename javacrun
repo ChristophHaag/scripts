@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+
+if [ -z "$1" ];
+then
+	echo "Run as $0 <[/path/to/]Javafile.java>"
+	exit 1
+fi
+
+javac "$1"
+
+DIR=$(dirname "${1}")
+FJAVA=${1##*/}
+F=${FJAVA%.java}
+java -cp "$DIR" "$F"
