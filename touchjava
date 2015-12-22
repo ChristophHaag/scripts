@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+
+if [ -z "$1" ];
+then
+	echo "Call as $0 <Classname> [directory]"
+fi
+
+case ${1:0:1} in
+[[:lower:]])
+	echo "$1 should begin with an uppercase letter."
+	exit
+	;;
+esac
+
+if [ -z "$2" ];
+then
+	P="$1.java"
+else
+	P="$2/$1.java"
+fi
+
+echo 'class' "$1" '{
+        public static void main(String[] args) {
+
+        }
+}' > "$P"
+
