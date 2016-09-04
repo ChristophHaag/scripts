@@ -79,7 +79,7 @@ fi
 
 if [ $SOUND -eq 1 ]
 then
-    SOUNDMUX=" pulsesrc device-name=$SOUNDDEV ! audio/x-raw,channels=2 ! multiqueue ! vorbisenc ! multiqueue ! muxer. muxer."
+    SOUNDMUX=" pulsesrc device-name=$SOUNDDEV ! audio/x-raw,channels=2 ! multiqueue ! faac ! multiqueue ! muxer. muxer."
 else
     SOUNDMUX="."
 fi
