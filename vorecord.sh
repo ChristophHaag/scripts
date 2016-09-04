@@ -67,7 +67,7 @@ shift $(($OPTIND - 1))
 if [ "0" -eq "${FULLSCREEN}" ]
 then
     echo "Choose a window to record"
-    SOURCE="$(xwininfo |grep 'Window id' | awk '{print $4;}') use-damage=0"
+    SOURCE="xid=$(xwininfo |grep 'Window id' | awk '{print $4;}') use-damage=0"
 
 fi
 echo "Recording..."
