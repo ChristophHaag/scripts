@@ -8,7 +8,7 @@ VAAPI=0
 OMX=0
 FILENAME="$HOME/output.mkv"
 
-while getopts ":s?f?m:r:o:" opt; do
+while getopts ":h?s?f?m:r:o:" opt; do
   case $opt in
     s)
       echo "Recording sound"
@@ -42,6 +42,14 @@ while getopts ":s?f?m:r:o:" opt; do
       echo "Parsed filename: $OPTARG"
       FILENAME=$OPTARG
       ;;
+    h)
+      echo "Usage:"
+      echo "$0 [-s] [-f] [-o filename] [-r framerate] -m (vaapi|omx)"
+      echo "-s: Record Pulseaudio sound from monitor $(pacmd list | sed -n "s/.*<\(.*\\.monitor\)>/\\1/p" | head -1)"
+      echo "-f: Fullscreen. Window picker is used when omitted"
+      echo "-r: Framerate in fps. Defaults to 30"
+      exit 0
+    ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
       exit 1
