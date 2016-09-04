@@ -74,7 +74,7 @@ echo "Recording..."
 
 if [ $VAAPI -eq 1 ]
 then
-    ENC="vaapipostproc format=i420 ! video/x-raw,format=I420,framerate=$RATE/1 ! multiqueue ! vaapih264enc"
+    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih264enc"
 elif [ $OMX -eq 1 ]
 then
     ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc"
