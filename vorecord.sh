@@ -77,7 +77,7 @@ then
     ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih264enc"
 elif [ $OMX -eq 1 ]
 then
-    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc"
+    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc control-rate=2 target-bitrate=9000000"
 else
     echo "ERROR: Missing encoding method: -m vaapi or -m omx"
     exit 1
@@ -85,7 +85,7 @@ fi
 
 if [ $SOUND -eq 1 ]
 then
-    SOUNDMUX=" pulsesrc device-name=$SOUNDDEV ! audio/x-raw,channels=2 ! multiqueue ! opusenc ! multiqueue ! muxer. muxer."
+    SOUNDMUX=" pulsesrc device-name=$SOUNDDEV ! audio/x-raw,channels=2 ! multiqueue ! opusenc frame-size=60 packet-loss-percentage=100 complexity=8 ! multiqueue ! muxer. muxer."
 else
     SOUNDMUX="."
 fi
