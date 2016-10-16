@@ -8,7 +8,7 @@ VAAPI=0
 OMX=0
 DIR="$HOME"
 
-VAAPI_DISABLE_INTERLACE=1 #will duplicate and squish images otherwise
+export VAAPI_DISABLE_INTERLACE=1 #will duplicate and squish images otherwise
 
 while getopts ":h?s?f?d:m:r:o:" opt; do
   case $opt in
@@ -77,7 +77,7 @@ echo "Recording..."
 if [ $VAAPI -eq 1 ]
 then
     #for constant bitrate: rate-control=cbr
-    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih264enc rate-control=cqp bitrate=10000 ! video/x-h264,profile=baseline"
+    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih264enc rate-control=cqp bitrate=5000 ! video/x-h264,profile=baseline"
 elif [ $OMX -eq 1 ]
 then
     ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc control-rate=2 target-bitrate=11000000"
