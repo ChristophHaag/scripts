@@ -76,7 +76,8 @@ echo "Recording..."
 
 if [ $VAAPI -eq 1 ]
 then
-    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih264enc"
+    #for constant bitrate: rate-control=cbr
+    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih264enc rate-control=cqp bitrate=10000 ! video/x-h264,profile=baseline"
 elif [ $OMX -eq 1 ]
 then
     ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc control-rate=2 target-bitrate=11000000"
