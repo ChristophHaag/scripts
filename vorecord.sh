@@ -6,7 +6,9 @@ METHOD=""
 RATE=30
 VAAPI=0
 OMX=0
-DIR=$HOME
+DIR="$HOME"
+
+VAAPI_DISABLE_INTERLACE=1 #will duplicate and squish images otherwise
 
 while getopts ":h?s?f?d:m:r:o:" opt; do
   case $opt in
@@ -77,7 +79,7 @@ then
     ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih264enc"
 elif [ $OMX -eq 1 ]
 then
-    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc control-rate=2 target-bitrate=9000000"
+    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc control-rate=2 target-bitrate=11000000"
 else
     echo "ERROR: Missing encoding method: -m vaapi or -m omx"
     exit 1
