@@ -21,6 +21,7 @@ while getopts ":h?s?f?d:m:r:o:" opt; do
       echo "Recording fullscreen"
       FULLSCREEN=1
       SOURCE="display-name=:0 use-damage=0 startx=0 starty=0 endx=1919 endy=1079"
+      #SOURCE="display-name=:0 use-damage=0 startx=0 starty=0 endx=2159 endy=1199"
       ;;
     m)
       if [ "$OPTARG"x == "vaapix" ]
@@ -77,10 +78,10 @@ echo "Recording..."
 if [ $VAAPI -eq 1 ]
 then
     #for constant bitrate: rate-control=cbr
-    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih264enc rate-control=cqp bitrate=5000 ! video/x-h264,profile=baseline"
+    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih265enc rate-control=cqp bitrate=3000 ! video/x-h265"
 elif [ $OMX -eq 1 ]
 then
-    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc control-rate=2 target-bitrate=11000000"
+    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc control-rate=2 target-bitrate=15000000"
 else
     echo "ERROR: Missing encoding method: -m vaapi or -m omx"
     exit 1
@@ -88,7 +89,7 @@ fi
 
 if [ $SOUND -eq 1 ]
 then
-    SOUNDMUX=" pulsesrc device-name=$SOUNDDEV ! audio/x-raw,channels=2 ! multiqueue ! opusenc frame-size=60 packet-loss-percentage=100 complexity=8 ! multiqueue ! muxer. muxer."
+    SOUNDMUX=" pulsesrc device-name=$SOUNDDEV ! audio/x-raw,channels=2 ! multiqueue ! opusenc frame-size=40 complexity=6 ! multiqueue ! muxer. muxer."
 else
     SOUNDMUX="."
 fi
@@ -100,6 +101,6 @@ fi
 
 echo "Recording to $FILENAME"
 
-CMD="gst-launch-1.0 -e ximagesrc $SOURCE ! multiqueue ! video/x-raw,format=BGRx,framerate=$RATE/1 ! $ENC ! h264parse ! multiqueue ! matroskamux name=muxer$SOUNDMUX ! progressreport name=Rec_time ! filesink location=$FILENAME"
+CMD="gst-launch-1.0 -e ximagesrc $SOURCE ! multiqueue ! video/x-raw,format=BGRx,framerate=$RATE/1 ! $ENC ! h265parse ! multiqueue ! matroskamux name=muxer$SOUNDMUX ! progressreport name=Rec_time ! filesink location=$FILENAME"
 echo "$CMD"
 eval "$CMD"
