@@ -78,10 +78,10 @@ echo "Recording..."
 if [ $VAAPI -eq 1 ]
 then
     #for constant bitrate: rate-control=cbr
-    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih265enc rate-control=cqp bitrate=3000 ! video/x-h265"
+    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih265enc rate-control=cqp bitrate=2000 ! video/x-h265 ! h265parse"
 elif [ $OMX -eq 1 ]
 then
-    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc control-rate=2 target-bitrate=15000000"
+    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc control-rate=2 target-bitrate=15000000 ! h264parse"
 else
     echo "ERROR: Missing encoding method: -m vaapi or -m omx"
     exit 1
@@ -101,6 +101,6 @@ fi
 
 echo "Recording to $FILENAME"
 
-CMD="gst-launch-1.0 -e ximagesrc $SOURCE ! multiqueue ! video/x-raw,format=BGRx,framerate=$RATE/1 ! $ENC ! h265parse ! multiqueue ! matroskamux name=muxer$SOUNDMUX ! progressreport name=Rec_time ! filesink location=$FILENAME"
+CMD="gst-launch-1.0 -e ximagesrc $SOURCE ! multiqueue ! video/x-raw,format=BGRx,framerate=$RATE/1 ! $ENC ! multiqueue ! matroskamux name=muxer$SOUNDMUX ! progressreport name=Rec_time ! filesink location=$FILENAME"
 echo "$CMD"
 eval "$CMD"
