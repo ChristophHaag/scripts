@@ -78,7 +78,7 @@ echo "Recording..."
 if [ $VAAPI -eq 1 ]
 then
     #for constant bitrate: rate-control=cbr
-    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih265enc rate-control=cqp bitrate=2000 ! video/x-h265 ! h265parse"
+    ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! vaapih265enc rate-control=cqp bitrate=2000 ! video/x-h265,stream-format=byte-stream ! h265parse"
 elif [ $OMX -eq 1 ]
 then
     ENC="videoconvert ! video/x-raw,format=NV12,framerate=$RATE/1 ! multiqueue ! omxh264enc control-rate=2 target-bitrate=15000000 ! h264parse"
@@ -89,7 +89,7 @@ fi
 
 if [ $SOUND -eq 1 ]
 then
-    SOUNDMUX=" pulsesrc device-name=$SOUNDDEV ! audio/x-raw,channels=2 ! multiqueue ! opusenc frame-size=40 complexity=6 ! multiqueue ! muxer. muxer."
+    SOUNDMUX=" pulsesrc device=$SOUNDDEV ! audio/x-raw,channels=2 ! multiqueue ! opusenc frame-size=40 complexity=6 ! multiqueue ! muxer. muxer."
 else
     SOUNDMUX="."
 fi
