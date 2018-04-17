@@ -89,7 +89,10 @@ fi
 
 if [ $SOUND -eq 1 ]
 then
-    SOUNDMUX=" pulsesrc device=$SOUNDDEV ! audio/x-raw,channels=2 ! multiqueue ! opusenc frame-size=40 complexity=6 ! multiqueue ! muxer. muxer."
+    #SOUNDMUX=" pulsesrc device=$SOUNDDEV ! audio/x-raw,channels=2 ! multiqueue ! opusenc frame-size=40 complexity=6 ! multiqueue ! muxer. muxer."
+    echo "Please switch the sound recording source to the one you want in e.g. pavucontrol"
+    echo "pulseaudio will remember the audio source. The next time you run this script, it will record from the same source."
+    SOUNDMUX=" pulsesrc ! audio/x-raw,channels=2 ! multiqueue ! opusenc frame-size=40 complexity=6 ! multiqueue ! muxer. muxer."
 else
     SOUNDMUX="."
 fi
